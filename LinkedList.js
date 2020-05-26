@@ -28,25 +28,130 @@ function LinkedList() {
     length++
   }
 
-  // 向特定位置插入项
-  this.insert = function (position, val) { }  
+  /**
+   * 向特定位置插入项
+   * @param {number} position
+   * @param {any} val
+   * @returns {Node}
+   */
+  this.insert = function (position, val) {
+    var node = new Node(val)
+    if (position < -1 || position > length) {
+      return null
+    }
 
-  // 删除某项
-  this.remove = function (val) { } 
+    var index = 0, current = head, previous
+    // 从头插入
+    if (position === 0) {
+      node.next = head
+      head = node
+    } else {
+      while (index++ < position) {
+        previous = current
+        current = current.next
+        index++
+      }
+      previous.next = node
+      node.next = current
+    }
+    length++
+    return node;
+  }
 
-  // 从特定位置删除项
-  this.removeAt = function (position) { }  
+  /**
+   * 删除某项
+   * @param {any} val
+   * @return {Node} 
+   */
+  this.remove = function (val) {
+    var current = head, previous
+    while (current) {
+      // 找到该项删除
+      if (current.val === val) {
+        previous.next = current.next
+        return current
+      }
+      previous = current
+      current = current.next
+    }
+    return null
+  }
 
-  // 返回索引
-  this.indexOf = function (val) { }  
+  /**
+   * 从特定位置删除项
+   * @param {number} position
+   * @return {Node}
+   */
+  this.removeAt = function (position) {
+    // 处理边界
+    if (position < 0 || position >= length) {
+      return null
+    }
 
-  // 反转链表
+    var current = head, previous, index = 0
+    if (position === 0) {
+      head = current.next
+    } else {
+      // 遍历到position的位置
+      while (index++ < position) {
+        previous = current;
+        current = current.next;
+      }
+
+      // 将current跳过 js引擎会gc掉
+      previous.next = current.next;
+    }
+    return current
+  }
+
+  /**
+   * 返回索引
+   * @param {any} val
+   * @return {number}
+   */
+  this.indexOf = function (val) {
+    var index = 0, current = head
+    while (current) {
+      if (current.val === val) {
+        return index
+      }
+      index++
+      current = current.next
+    }
+    return -1
+  }
+
+  /**
+   * 返回索引项
+   * @param {number} position
+   * @returns {Node}
+   */
+  this.getNode = function(position) {
+    if (position < 0 || position >= length) {
+      return null
+    }
+
+    var current = head, index = 0
+    if (position === 0) {
+      return head
+    } else {
+      // 遍历到position的位置
+      while (index++ < position) {
+        current = current.next;
+      }
+    }
+    return current
+  }
+
+  /**
+   * 反转链表
+   * @return {Node}
+   */
   this.reverse = function () {
     if (head == null) return null;
     var current = head
     var next = null
     while (current.next != null) {
-      console.log('in reverse')
       next = current.next
 
       // 这一步已经将 current 往后移动了
@@ -57,28 +162,27 @@ function LinkedList() {
     return head
   }
 
-  this.isEmpty = function () {
-    return length === 0
+  this.toString = function () {
+    var current = head, str = ''
+    while (current) {
+      str += (current.val + ',')
+      current = current.next
+    }
+    return str.substr(0, str.length - 1)
   }
 
   this.size = function () {
     return length
   }
 
-  this.toString = function () {
-    var current = head, str = ''
-    while (current) {
-      console.log(current)
-      str += (current.val + ',')
-      current = current.next
-    }
-    return str.substr(0, str.length - 1)
+  this.getHead = function () {
+    return head
+  }
+
+  this.isEmpty = function () {
+    return length === 0
   }
 }
 
-var a = new LinkedList()
-a.append(1)
-a.append(2)
-console.log(a.toString())
-a.reverse()
-console.log(a.toString())
+
+module.exports = LinkedList;
