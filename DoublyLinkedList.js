@@ -7,8 +7,7 @@
 function DoublyLinkedList() {
   function Node(val) {
     this.val = val;
-    this.prev = null
-    this.next = null
+    this.prev = this.next = null
   }
   var length = 0
   var head = null
@@ -187,5 +186,5 @@ function DoublyLinkedList() {
 }
 
 
-module.exports = LinkedList;
+module.exports = DoublyLinkedList;
 
