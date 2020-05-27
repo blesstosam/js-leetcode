@@ -1,19 +1,25 @@
 /**
- * 单向链表
+ * 双向链表
+ * 与单向链表相比增加一个priv指针指向前一个元素
+ * head的prev为null
  * 最后一个节点的next为null
  */
-function LinkedList() {
+function DoublyLinkedList() {
   function Node(val) {
     this.val = val;
+    this.prev = null
     this.next = null
   }
   var length = 0
   var head = null
 
+  // 最后一个节点
+  var tail = null
+
   /**
-   * 返回索引
+   * 向末尾添加节点
    * @param {any} val
-   * @return {number}
+   * @returns void
    */
   this.append = function (val) {
     var current
@@ -29,85 +35,91 @@ function LinkedList() {
       }
 
       current.next = node
+
+      // 指定 prev
+      node.prev = current
     }
     length++
   }
 
   /**
+   * todo
    * 向特定位置插入项
    * @param {number} position
    * @param {any} val
    * @returns {Node}
    */
-  this.insert = function (position, val) {
-    var node = new Node(val)
-    if (position < 0 || position > length) {
-      return null
-    }
+  // this.insert = function (position, val) {
+  //   var node = new Node(val)
+  //   if (position < 0 || position > length) {
+  //     return null
+  //   }
 
-    var index = 0, current = head, previous
-    // 从头插入
-    if (position === 0) {
-      node.next = head
-      head = node
-    } else {
-      while (index++ < position) {
-        previous = current
-        current = current.next
-        index++
-      }
-      previous.next = node
-      node.next = current
-    }
-    length++
-    return node;
-  }
+  //   var index = 0, current = head, previous
+  //   // 从头插入
+  //   if (position === 0) {
+  //     node.next = head
+  //     head = node
+  //   } else {
+  //     while (index++ < position) {
+  //       previous = current
+  //       current = current.next
+  //       index++
+  //     }
+  //     previous.next = node
+  //     node.next = current
+  //   }
+  //   length++
+  //   return node;
+  // }
 
   /**
+   * todo
    * 删除某项
    * @param {any} val
    * @return {Node} 
    */
-  this.remove = function (val) {
-    var current = head, previous
-    while (current) {
-      // 找到该项删除
-      if (current.val === val) {
-        previous.next = current.next
-        return current
-      }
-      previous = current
-      current = current.next
-    }
-    return null
-  }
+  // this.remove = function (val) {
+  //   var current = head, previous
+  //   while (current) {
+  //     // 找到该项删除
+  //     if (current.val === val) {
+  //       previous.next = current.next
+  //       return current
+  //     }
+  //     previous = current
+  //     current = current.next
+  //   }
+  //   return null
+  // }
 
   /**
+   * todo
    * 从特定位置删除项
    * @param {number} position
    * @return {Node}
    */
-  this.removeAt = function (position) {
-    // 处理边界
-    if (position < 0 || position >= length) {
-      return null
-    }
+  // this.removeAt = function (position) {
+  //   // 处理边界
+  //   if (position < 0 || position >= length) {
+  //     return null
+  //   }
 
-    var current = head, previous, index = 0
-    if (position === 0) {
-      head = current.next
-    } else {
-      // 遍历到position的位置
-      while (index++ < position) {
-        previous = current;
-        current = current.next;
-      }
+  //   var current = head, previous, index = 0
+  //   if (position === 0) {
+  //     head = current.next
+  //   } else {
+  //     // 遍历到position的位置
+  //     while (index++ < position) {
+  //       previous = current;
+  //       current = current.next;
+  //     }
 
-      // 将current跳过 js引擎会gc掉
-      previous.next = current.next;
-    }
-    return current
-  }
+  //     // 将current跳过 js引擎会gc掉
+  //     previous.next = current.next;
+  //   }
+  //   return current
+  // }
 
   /**
    * 返回索引
@@ -148,25 +160,6 @@ function LinkedList() {
     return current
   }
 
-  /**
-   * 反转链表
-   * @return {Node}
-   */
-  this.reverse = function () {
-    if (head == null) return null;
-    var current = head
-    var next = null
-    while (current.next != null) {
-      next = current.next
-
-      // 这一步已经将 current 往后移动了
-      current.next = next.next
-      next.next = head
-      head = next
-    }
-    return head
-  }
-
   this.toString = function () {
     var current = head, str = ''
     while (current) {
@@ -184,6 +177,10 @@ function LinkedList() {
     return head
   }
 
+  this.getTail = function () {
+    return tail
+  }
+
   this.isEmpty = function () {
     return length === 0
   }
@@ -191,3 +188,4 @@ function LinkedList() {
 
 
 module.exports = LinkedList;
+
