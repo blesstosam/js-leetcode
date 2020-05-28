@@ -140,7 +140,10 @@ function BinarySearchTree() {
     return node
   }
 
-  // 返回最大深度 leetcode 104 https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+  /**
+   * 返回最大深度 leetcode 104 https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+   * @returns {number}
+   */
   this.depth = function () {
     // depth = max(左子树深度，右子树深度) + 1
     if (root == null) return 0

@@ -4,7 +4,10 @@
   "description": "",
   "main": "LinkedList.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "bst": "jest binary-search-tree",
+    "ll": "jest linked-list",
+    "g": "jest graph"
   },
   "repository": {
     "type": "git",
