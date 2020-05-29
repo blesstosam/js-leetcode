@@ -26,13 +26,15 @@ function BinarySearchTree() {
       } else {
         insertNode(node.left, newNode)
       }
-    } else {
+    } else if (newNode.val > node.val) {
       if (node.right == null) {
         node.right = newNode
       } else {
         insertNode(node.right, newNode)
       }
     }
+
+    // 如果相等不做处理
   }
 
   /**
