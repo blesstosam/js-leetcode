@@ -1,6 +1,7 @@
 /**
- * 散列表 HashTable => HashMap
- * 是 Dictionary类的一种散列表实现方式
+ * 散列表 HashTable => HashMap 是 Dictionary 类的一种散列表实现方式 =>
+ * （Dictionary是用Object来存值，HashTable用数组来存值，数组是一个稀疏数组，比较浪费空间，=>
+ * 这也是叫`散列`名称的原因。但是数组可以直接通过下标(地址)来访问数据，速度很快）
  * 散列算法的作用是尽可能快的在数据结构中找到一个值
  * 可能会有冲突 即 键值相同 后面的会覆盖前面的
  */
@@ -20,6 +21,7 @@ function HashTable() {
   this.put = function (key, value) {
     var position = loseloseHashCode(key)
     console.log(position + ' - ' + key)
+    // 这里要注意 position 是数字类型才能这么赋值
     table[position] = value
   }
 

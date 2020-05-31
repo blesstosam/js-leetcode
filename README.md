@@ -12,12 +12,12 @@
 
 ## 树的类型
 
-| 大类   | 细分                                | 特点                                   |
-| ------ | ----------------------------------- | -------------------------------------- |
-| 二叉树 | 二叉搜索树（BST）Binary Search Tree | 查找性能较好                           |
-| 二叉树 | 自平衡二叉搜索树（AVL）             | 任何一个节点左右两侧子树的高低最多为 1 |
-| 二叉树 | 红黑树                              | 可以进行高效的中序遍历                 |
-| 二叉树 | 堆积树                              | -                                      |
+| 大类   | 细分                                | 特点                                     |
+| ------ | ----------------------------------- | ---------------------------------------- |
+| 二叉树 | 二叉搜索树（BST）Binary Search Tree | 查找性能较好                             |
+| 二叉树 | 自平衡二叉搜索树（AVL）             | 任何一个节点左右两侧子树的高低最多为 1   |
+| 二叉树 | 红黑树 (RBT) Red Black Tree         | 一种特化的 AVL 树 可以进行高效的中序遍历 |
+| 二叉树 | 堆积树                              | -                                        |
 
 ## 树的遍历方式
 
@@ -27,6 +27,93 @@
 | 深度优先搜索（DFS）                     | 中序遍历 | -    |
 | 深度优先搜索（DFS）                     | 后序遍历 | -    |
 | 广度优先搜索（BFS）Breadth-First Search | 层序遍历 | -    |
+
+# 排序算法
+
+## 归并排序 时间复杂度 O(nlogn)
+
+```js
+function mergeSort() {
+  array = mergeSortRec(array);
+}
+var mergeSortRec = function (array) {
+  var length = array.length;
+  if (length === 1) {
+    return array;
+  }
+  var mid = Math.floor(length / 2),
+    left = array.slice(0, mid),
+    right = array.slice(mid, length);
+  return merge(mergeSortRec(left), mergeSortRec(right));
+};
+var merge = function (left, right) {
+  var result = [],
+    il = 0,
+    ir = 0;
+  // 将小的数组放到前面  只会遍历小的数组
+  while (il < left.length && ir < right.length) {
+    if (left[il] < right[ir]) {
+      result.push(left[il++]);
+    } else {
+      result.push(right[ir++]);
+    }
+  }
+  // 将大的数组放到后面 只会遍历大的数组
+  while (il < left.length) {
+    result.push(left[il++]);
+  }
+  while (ir < right.length) {
+    result.push(right[ir++]);
+  }
+  return result;
+};
+```
+
+## 快速排序 时间复杂度 O(nlogn)
+
+```js
+var quickSort = function () {
+  // 取第一个和最后一个元素作为左右指针
+  quick(array, 0, array.length - 1);
+};
+var quick = function (array, left, right) {
+  var index;
+  if (array.length > 1) {
+    index = partition(array, left, right);
+  }
+  if (left < index - 1) {
+    quick(array, left, index - 1);
+  }
+  if (index < right) {
+    quick(array, index, right);
+  }
+};
+var partition = function (array, left, right) {
+  // 取数组中间值作为主元
+  var pivot = array[Math.floor((right + left) / 2)],
+    i = left,
+    j = right;
+  while (i <= j) {
+    while (array[i] < pivot) {
+      i++;
+    }
+    while (array[j] > pivot) {
+      j--;
+    }
+    if (i <= j) {
+      swapQuickStort(array, i, j);
+      i++;
+      j--;
+    }
+  }
+  return i;
+};
+var swapQuickStort = function (array, index1, index2) {
+  var aux = array[index1];
+  array[index1] = array[index2];
+  array[index2] = aux;
+};
+```
 
 # 搜索算法
 
@@ -65,13 +152,27 @@ this.binarySearch = function (item) {
 };
 ```
 
+# LRU (Least Recently Used) 缓存淘汰算法
+
+## 认为最近使用过的数据应该是是「有用的」，很久都没用过的数据应该是无用的，内存满了就优先删那些很久没用过的数据
+
 # 递归
 
 ## 它解决问题的各个小部分，直到解决最初的大问题
 
+- 一个问题的解可以分解为几个子问题的解
+
+- 这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样
+
+- 存在递归终止条件，即必须有一个明确的递归结束条件，称之为递归出口
+
 # 动态规划 (DP - Dynamic Programming)
 
 ## 是一种将复杂问题分解成更小的子问题来解决的优化技术
+
+- 将一个原问题分解成规模较小的子问题，递归的求解这些子问题，然后合并子问题的解得到原问题的解（与分治策略一样）
+- 动态规划法试图只解决每个子问题一次（通过存储解），分治策略可能会多次求解
+- **因此，分治策略一般用来解决子问题相互对立的问题，称为标准分治，而动态规划用来解决子问题重叠的问题**
 
 ### 例子 最少硬币找零问题
 

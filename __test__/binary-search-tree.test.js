@@ -127,3 +127,43 @@ test('test `BinarySearchTree` depth', () => {
   tree.insert(200)
   expect(tree.depth()).toBe(5);
 });
+
+test('test `BinarySearchTree` 判断一棵树是否是bst', () => {
+  var tree = new BinarySearchTree()
+  tree.insert(5)
+  tree.insert(11)
+  tree.insert(8)
+  tree.insert(2)
+  tree.insert(13)
+  tree.insert(1)
+  tree.insert(3)
+
+  // https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/7/trees/48/
+  var isValidBST = function(root) {
+    // 空树也为true
+    if (!root) return true
+    
+    var pre = null
+    var flag = true
+    inOrder(root, (val) => {
+      if (pre != null && pre >= val) {
+        flag = false
+      }
+      pre = val
+    })
+    return flag
+  
+    // 中序遍历后面的数值一定比前面大 
+    function inOrder(node, cb) {
+      // 增加一个条件如果flag为false 则不需要继续遍历了
+      if (node && flag) {
+        inOrder(node.left, cb)
+        cb(node.val)
+        inOrder(node.right, cb)
+      }
+    }
+  };
+
+  expect(isValidBST(tree.root())).toBe(true);
+});
+
