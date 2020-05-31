@@ -81,13 +81,32 @@ function BinarySearchTree() {
 
   /**
    * 层序遍历
+   * leetcode https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/7/trees/50/
    * @param {Function} cb
+   * @returns {Array} [ [3], [9, 20], [15, 7] ]
    */
-  this.levelOrderTraverse = function (cb) {
-    levelOrderTraverseNode(root, cb)
-  }
-  function levelOrderTraverseNode(node, cb) {
-
+  this.levelOrderTraverse = function () {
+    if (root == null) return []
+    var parent = [root]
+    var arr = [[root.val]]
+    while (parent.length) {
+      var tempArr = []
+      var temp = []
+      for (let i = 0; i < parent.length; i++) {
+        var n = parent[i]
+        if (n.left) {
+          tempArr.push(n.left.val)
+          temp.push(n.left)
+        }
+        if (n.right) {
+          tempArr.push(n.right.val)
+          temp.push(n.right)
+        }
+      }
+      if (tempArr.length) arr.push(tempArr)
+      parent = temp
+    }
+    return arr
   }
 
   this.remove = function (val) {

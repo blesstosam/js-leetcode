@@ -73,7 +73,12 @@ function LinkedList() {
     while (current) {
       // 找到该项删除
       if (current.val === val) {
-        previous.next = current.next
+        if (previous) {
+          previous.next = current.next
+        } else {
+          // 移除第一个节点
+          head = current.next
+        }
         return current
       }
       previous = current
