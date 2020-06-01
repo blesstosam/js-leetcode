@@ -7,7 +7,8 @@
     "test": "jest",
     "bst": "jest binary-search-tree",
     "ll": "jest linked-list",
-    "g": "jest graph"
+    "g": "jest graph",
+    "bm": "node __test__/benchmark.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,8 @@
   "homepage": "https://github.com/blesstosam/js-leetcode#readme",
   "devDependencies": {
     "jest": "^26.0.1"
+  },
+  "dependencies": {
+    "benchmark": "^2.1.4"
   }
 }
