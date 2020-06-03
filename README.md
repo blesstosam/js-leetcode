@@ -148,7 +148,7 @@ this.binarySearch = function (item) {
       return mid;
     }
   }
-  return -1; //{12}
+  return -1;
 };
 ```
 
