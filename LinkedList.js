@@ -11,6 +11,7 @@ function LinkedList() {
   var head = null
 
   /**
+   * 向末尾插入节点
    * 返回索引
    * @param {any} val
    * @return {number}
@@ -183,6 +184,11 @@ function LinkedList() {
 
   this.size = function () {
     return length
+  }
+
+  this.clear = function() {
+    head = null
+    length = 0
   }
 
   this.getHead = function () {
