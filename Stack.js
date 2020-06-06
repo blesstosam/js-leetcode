@@ -36,6 +36,10 @@ function StackByArray() {
 }
 
 const LinkedList  = require('./LinkedList')
+
+/**
+ * 用链表实现栈
+ */
 function StackByLinkedList() {
   var list = new LinkedList()
 
@@ -58,9 +62,6 @@ function StackByLinkedList() {
   }
 
   this.clear = function() {
-    // todo 怎么clear一个链表 触发gc
-    // let head = list.getHead()
-    // head = null
     list.clear()
   }
 
