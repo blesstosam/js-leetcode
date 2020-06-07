@@ -9,7 +9,8 @@
     "ll": "jest linked-list",
     "g": "jest graph",
     "stack": "jest __test__/stack",
-    "bm": "node __test__/benchmark.js"
+    "bm": "node __test__/benchmark.js",
+    "util": "jest leetcode/__test__/util"
   },
   "repository": {
     "type": "git",
