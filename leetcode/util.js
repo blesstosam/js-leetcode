@@ -9,30 +9,68 @@ function TreeNode(val) {
 }
 
 /**
- * 二叉树
+ * 单向链表 用来构造测试数据进行算法测试
+ * var ll = new LinkedList()
+ * ll.makeLinkedList()
  */
-function BinaryTree() {
-  var root = null
+function LinkedList() {
+  var head = null
 
-  // 根据
-  this.appendTo = function (val) {
-    var newNode = new TreeNode(val)
-    if (root == null) {
-      root = newNode
+  this.append = function (val) {
+    var newNode = new ListNode(val)
+
+    if (head == null) {
+      head = newNode
     } else {
-      var p = root
-      // while(p.)
+      var p = head
+      while (p.next) {
+        p = p.next
+      }
+      p.next = newNode
     }
   }
 
   /**
-   * [1,4,5,8,1,10,11,4]
+   * 构造链表测试数据
+   * @param {Array} arr
+   * @returns {ListNode}
+   */
+  this.makeLinkedList = function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      var ele = arr[i];
+      this.append(ele)
+    }
+    return head
+  }
+
+  /**
+   * 打印出所有的值 用逗号隔开的字符串
+   */
+  this.toString = function () {
+    var str = '', p = head
+    while (p) {
+      str += (p.val + ',')
+      p = p.next
+    }
+    return str.substring(0, str.length - 1)
+  }
+}
+
+/**
+ * 二叉树 用于构造二叉树的测试数据
+ * var tree = new BinaryTree()
+ * tree.makeBinaryTree([1,4,5,8,1,10,11,4])
+ */
+function BinaryTree() {
+  var root = null
+
+  /**
    * 根据数组来还原一个二叉树
    * 层序遍历的顺序为数组的顺序 空节点为null
    * @param {Array} arr
    * @returns {TreeNode}
    */
-  this.makeBinaryTreeTree = function (arr) {
+  this.makeBinaryTree = function (arr) {
     if (!arr.length) return null
     if (arr.length === 1 && arr[0] == null) return null
 
@@ -67,6 +105,7 @@ function BinaryTree() {
         }
       }
     }
+    return root
   }
 
   /**
@@ -75,6 +114,7 @@ function BinaryTree() {
    */
   this.levelOrderTraverse = function () {
     if (root == null) return []
+
     var parent = [root]
     var arr = [[root.val]]
     while (parent.length) {
@@ -83,13 +123,18 @@ function BinaryTree() {
       for (let i = 0; i < parent.length; i++) {
         var n = parent[i]
         if (n.left) {
-          tempArr.push(n.left.val)
           temp.push(n.left)
         }
+        tempArr.push(n.left && n.left.val || null)
         if (n.right) {
-          tempArr.push(n.right.val)
           temp.push(n.right)
         }
+        tempArr.push(n.right && n.right.val || null)
+      }
+      // 处理一下tempArr 从后遍历 去掉后面的null 一旦遇到非null 停止遍历
+      for (let j = tempArr.length - 1; j >= 0; j--) {
+        if (tempArr[j] == null) tempArr.pop()
+        else break
       }
       if (tempArr.length) arr.push(tempArr)
       parent = temp
@@ -105,5 +150,10 @@ function BinaryTree() {
 
 // TODO 找一个库来做二叉树的可视化
 
-module.exports = BinaryTree
+module.exports = {
+  ListNode,
+  TreeNode,
+  BinaryTree,
+  LinkedList
+}
 
