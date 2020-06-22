@@ -1,5 +1,35 @@
 const LinkedList = require("./LinkedList")
 
+// 散列函数实现 http://goo.gl/VtdN2x
+// 好的实现应该满足 1. 性能要好 2. 冲突较少
+
+/**
+ * 散列函数 将键的字符二进制码相加
+ * 此法产生的冲突太频繁 不建议使用
+ * @param {*} key 
+ */
+function loseloseHashCode(key) {
+  var hash = 0;
+  for (var i = 0; i < key.length; i++) {
+    hash += key.charCodeAt(i)
+  }
+  // 为了得到比较小的数值 使用hash值和一个任意数做除法的余数
+  return hash % 37
+}
+
+/**
+ * 散列函数
+ * @param {*} key 
+ */
+function djb2HashCode(key) {
+  var hash = 5381
+  for (let i = 0; i < key.length; i++) {
+    hash = hash * 33 + key.charCodeAt(i)
+  }
+  return hash % 1013
+}
+
+
 /**
  * 散列表 HashTable 也叫 HashMap 是 Dictionary 类的一种散列表实现方式 =>
  * （Dictionary是用Object来存值，HashTable用数组来存值，数组是一个稀疏数组，比较浪费空间，=>
@@ -19,16 +49,6 @@ function HashTable() {
     this.toString = function () {
       return `[${this.key} - ${this.value}]`
     }
-  }
-
-  // 散列函数 将键的字符二进制码相加
-  function loseloseHashCode(key) {
-    var hash = 0;
-    for (var i = 0; i < key.length; i++) {
-      hash += key.charCodeAt(i)
-    }
-    // 为了得到比较小的数值 使用hash值和一个任意数做除法的余数
-    return hash % 37
   }
 
   this.put = function (key, value) {
@@ -93,16 +113,6 @@ function HashTable2() {
     this.toString = function () {
       return `[${this.key} - ${this.value}]`
     }
-  }
-
-  // 散列函数 将键的字符二进制码相加
-  function loseloseHashCode(key) {
-    var hash = 0;
-    for (var i = 0; i < key.length; i++) {
-      hash += key.charCodeAt(i)
-    }
-    // 为了得到比较小的数值 使用hash值和一个任意数做除法的余数
-    return hash % 37
   }
 
   this.put = function (key, value) {

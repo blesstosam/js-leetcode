@@ -150,7 +150,7 @@ function BinaryTree() {
 
 // TODO 找一个库来做二叉树的可视化
 
-module.exports = {
+export {
   ListNode,
   TreeNode,
   BinaryTree,

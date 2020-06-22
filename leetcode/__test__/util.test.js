@@ -1,4 +1,4 @@
-const { BinaryTree, LinkedList } = require('../util')
+import { BinaryTree, LinkedList } from '../util'
 
 test('用数组构造层序遍历的二叉树 param => []', () => {
   const a = new BinaryTree()
